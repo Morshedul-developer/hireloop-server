@@ -37,6 +37,7 @@ async function run() {
     const companyCollection = database.collection("companies");
 
 
+    // jobs related apis
     app.get("/api/jobs", async (req, res) => {
       const query = {};
       
@@ -58,6 +59,14 @@ async function run() {
         const result = await jobCollection.insertOne(job);
         res.send(result);
     })
+
+
+    // companies related apis
+    app.post("/api/companies", async (req, res) => {
+        const company = req.body;
+        const result = await companyCollection.insertOne(company);
+        res.send(result);
+    });
 
 
     // Send a ping to confirm a successful connection
