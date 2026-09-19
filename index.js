@@ -35,7 +35,16 @@ async function run() {
     const database = client.db("hireloop_db");
     const jobCollection = database.collection("jobs");
     const companyCollection = database.collection("companies");
+    const userCollection = database.collection("user");
 
+
+
+    // user related apis
+    app.get("/api/users", async (req, res) => {
+      const cursor = userCollection.find().skip(2);
+      const result = await cursor.toArray();
+      res.send(result);
+    })
 
     // jobs related apis
     app.get("/api/jobs", async (req, res) => {
@@ -66,6 +75,13 @@ async function run() {
 
 
     // companies related apis
+
+    app.get("/api/companies", async (req, res) => {
+      const cursor = companyCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     app.get("/api/my/companies", async (req, res) => {
       const query = {};
       if(req.query.recruiterId) {
